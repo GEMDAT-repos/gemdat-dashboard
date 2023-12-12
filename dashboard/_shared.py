@@ -16,15 +16,14 @@ def get_trajectory_location(filename='vasprun.xml'):
         st.info(f'Got `{trajectory_location}` via environment variable.')
         return Path(trajectory_location)
 
-    trajectory_location = st.session_state.get('trajectory_location',
-                                               default=filename)
+    trajectory_location = st.session_state.get('trajectory_location', default=filename)
 
     st.markdown('Select input trajectory')
     col1, col2 = st.columns([0.7, 0.3])
     with col1:
-        trajectory_location = st.text_input('filename',
-                                            trajectory_location,
-                                            label_visibility='collapsed')
+        trajectory_location = st.text_input(
+            'filename', trajectory_location, label_visibility='collapsed'
+        )
     with col2:
         if st.button('Browse'):
             trajectory_location = filedialog.askopenfilename()
@@ -38,9 +37,7 @@ def get_trajectory_location(filename='vasprun.xml'):
     trajectory_location = Path(trajectory_location).expanduser()
 
     if not trajectory_location.exists():
-        st.info(
-            f'Could not find `{trajectory_location}`, select `{filename}` to continue'
-        )
+        st.info(f'Could not find `{trajectory_location}`, select `{filename}` to continue')
         st.stop()
 
     return trajectory_location
@@ -53,14 +50,15 @@ def get_base64_of_bin_file(png_file):
     return base64.b64encode(data).decode()
 
 
-def build_markup_for_logo(png_file,
-                          background_position='50% 2%',
-                          margin_top='0%',
-                          image_width='60%',
-                          image_height='',
-                          anchor='stSidebar'
-                          # anchor='stSidebarNav'  # Anchor to navigation
-                          ):
+def build_markup_for_logo(
+    png_file,
+    background_position='50% 2%',
+    margin_top='0%',
+    image_width='60%',
+    image_height='',
+    anchor='stSidebar',
+    # anchor='stSidebarNav'  # Anchor to navigation
+):
     binary_string = get_base64_of_bin_file(png_file)
     return f"""
             <style>

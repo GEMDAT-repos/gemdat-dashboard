@@ -11,7 +11,7 @@ pip install -r requirements.txt
 ```
 
 Then run:
- 
+
 ```console
 python ./gemdash.py
 ```

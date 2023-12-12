@@ -9,8 +9,7 @@ PORT = '8501'
 BASE_URL = f'http://localhost:{PORT}'
 
 if pytest.skip_dashboard:
-    pytestmark = pytest.mark.skip(
-        reason='Use `--dashboard` to test dashboard workflow.')
+    pytestmark = pytest.mark.skip(reason='Use `--dashboard` to test dashboard workflow.')
 
 
 @pytest.fixture(scope='module', autouse=True)
@@ -18,13 +17,15 @@ def before_module():
     """Run dashboard in module scope."""
     import subprocess
 
-    p = subprocess.Popen([
-        'gemdash',
-        '--server.port',
-        PORT,
-        '--server.headless',
-        'true',
-    ])
+    p = subprocess.Popen(
+        [
+            'gemdash',
+            '--server.port',
+            PORT,
+            '--server.headless',
+            'true',
+        ]
+    )
     time.sleep(5)
     yield
     p.kill()
@@ -35,8 +36,7 @@ def test_gemdash(page: Page):
     page.goto(BASE_URL)
 
     page.get_by_label('filename').click()
-    page.get_by_label('filename').fill(
-        'tests/data/short_simulation/vasprun.xml')
+    page.get_by_label('filename').fill('tests/data/short_simulation/vasprun.xml')
     page.get_by_label('filename').press('Enter')
 
     # check values

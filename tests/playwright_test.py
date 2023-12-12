@@ -8,9 +8,6 @@ from playwright.sync_api import Page, expect
 PORT = '8501'
 BASE_URL = f'http://localhost:{PORT}'
 
-if pytest.skip_dashboard:
-    pytestmark = pytest.mark.skip(reason='Use `--dashboard` to test dashboard workflow.')
-
 
 @pytest.fixture(scope='module', autouse=True)
 def before_module():
@@ -19,11 +16,9 @@ def before_module():
 
     p = subprocess.Popen(
         [
-            'gemdash',
-            '--server.port',
-            PORT,
-            '--server.headless',
-            'true',
+            *('python', 'gemdash.py'),
+            *('--server.port', PORT),
+            *('--server.headless', 'true'),
         ]
     )
     time.sleep(5)

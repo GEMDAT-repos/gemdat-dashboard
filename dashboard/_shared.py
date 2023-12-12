@@ -29,7 +29,7 @@ def get_trajectory_location(filename='vasprun.xml'):
         if st.button('Browse'):
             trajectory_location = filedialog.askopenfilename()
             st.session_state.trajectory_location = trajectory_location
-            st.experimental_rerun()
+            st.rerun()
 
     if not trajectory_location:
         st.info(f'Select `{filename}` to continue')

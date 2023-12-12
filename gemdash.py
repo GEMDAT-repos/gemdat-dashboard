@@ -7,7 +7,7 @@ from pathlib import Path
 
 from streamlit.web.cli import main
 
-dashboard_directory = Path(files('gemdat') / 'dashboard')  # type: ignore
+dashboard_directory = Path(__file__).parent / 'dashboard'
 
 
 def gemdash():
@@ -46,3 +46,6 @@ def gemdash():
     ]
 
     main()
+
+if __name__ == '__main__':
+    gemdash()
